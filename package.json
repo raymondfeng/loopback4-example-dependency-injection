@@ -1,0 +1,50 @@
+{
+  "name": "loopback4-example-di",
+  "version": "1.0.0",
+  "description": "An example for LoopBack 4 dependency injection",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "clean": "lb-clean loopback4-example-di*.tgz dist",
+    "prepare": "npm run build",
+    "pretest": "npm run lint:fix && npm run clean && npm run build",
+    "test": "lb-mocha \"DIST/test/unit/**/*.js\" \"DIST/test/acceptance/**/*.js\"",
+    "lint": "npm run prettier:check && npm run tslint",
+    "lint:fix": "npm run prettier:fix && npm run tslint:fix",
+    "tslint": "lb-tslint",
+    "tslint:fix": "npm run tslint -- --fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymondfeng/loopback4-example-di.git"
+  },
+  "author": "Raymond Feng",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raymondfeng/loopback4-example-di/issues"
+  },
+  "homepage": "https://github.com/strongloop/loopback4-example-di#readme",
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "dist",
+    "dist6"
+  ],
+  "dependencies": {
+    "@loopback/context": "^4.0.0-alpha.14"
+  },
+  "devDependencies": {
+    "@loopback/build": "^4.0.0-alpha.10"
+  }
+}
