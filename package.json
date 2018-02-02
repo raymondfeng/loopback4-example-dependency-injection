@@ -11,17 +11,15 @@
     "build:watch": "lb-tsc --watch",
     "clean": "lb-clean loopback4-example-di*.tgz dist",
     "prepare": "npm run build",
-    "pretest": "npm run lint:fix && npm run clean && npm run build",
-    "test": "lb-mocha \"DIST/test/unit/**/*.js\" \"DIST/test/acceptance/**/*.js\"",
+    "pretest": "npm run clean && npm run build",
+    "test": "npm run lint:fix",
     "lint": "npm run prettier:check && npm run tslint",
     "lint:fix": "npm run prettier:fix && npm run tslint:fix",
     "tslint": "lb-tslint",
     "tslint:fix": "npm run tslint -- --fix",
     "prettier:cli": "lb-prettier \"**/*.ts\"",
     "prettier:check": "npm run prettier:cli -- -l",
-    "prettier:fix": "npm run prettier:cli -- --write",
-    "posttest": "npm run lint",
-    "test:dev": "lb-mocha && npm run lint"
+    "prettier:fix": "npm run prettier:cli -- --write"
   },
   "repository": {
     "type": "git",
@@ -42,7 +40,7 @@
     "dist6"
   ],
   "dependencies": {
-    "@loopback/context": "^4.0.0-alpha.14"
+    "@loopback/context": "^4.0.0-alpha.29"
   },
   "devDependencies": {
     "@loopback/build": "^4.0.0-alpha.10"

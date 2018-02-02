@@ -23,7 +23,12 @@ export function main() {
   context.bind('y').toClass(YClass);
   context.bind('z').toClass(ZClass);
 
-  const val = context.getSync('x');
+  try {
+    // The following call with fail
+    context.getSync('x');
+  } catch (e) {
+    console.error(e.toString());
+  }
 }
 
 if (require.main === module) {
