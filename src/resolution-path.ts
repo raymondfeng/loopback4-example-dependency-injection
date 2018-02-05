@@ -4,7 +4,7 @@ export function main() {
   const context = new Context();
   let resolutionPath = '';
 
-  class ZClass {
+  class Project {
     @inject(
       'p',
       {},
@@ -16,21 +16,21 @@ export function main() {
     myProp: string;
   }
 
-  class YClass {
-    constructor(@inject('z') public z: ZClass) {}
+  class Team {
+    constructor(@inject('project') public project: Project) {}
   }
 
-  class XClass {
-    constructor(@inject('y') public y: YClass) {}
+  class Developer {
+    constructor(@inject('team') public team: Team) {}
   }
 
-  context.bind('x').toClass(XClass);
-  context.bind('y').toClass(YClass);
-  context.bind('z').toClass(ZClass);
-  context.getSync('x');
+  context.bind('developer').toClass(Developer);
+  context.bind('team').toClass(Team);
+  context.bind('project').toClass(Project);
+  context.getSync('developer');
   console.log('Resolution path: %s', resolutionPath);
-  // x --> @XClass.constructor[0] --> y --> @YClass.constructor[0]
-  // --> z --> @ZClass.prototype.myProp';
+  // developer --> @Developer.constructor[0] --> team --> @Team.constructor[0]
+  // --> project --> @Project.prototype.myProp
 }
 
 if (require.main === module) {

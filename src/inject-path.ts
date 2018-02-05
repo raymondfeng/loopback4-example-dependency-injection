@@ -6,7 +6,7 @@ import {Context, inject, ResolutionSession, Injection} from '@loopback/context';
 export function resolutionPath() {
   return inject(
     '',
-    {},
+    {decorator: '@resolutionPath'},
     (c: Context, injection: Injection, session: ResolutionSession) => {
       return session.getResolutionPath();
     },
@@ -16,26 +16,26 @@ export function resolutionPath() {
 export function main() {
   const context = new Context();
 
-  class ZClass {
+  class Project {
     // Set up the project injection
     @resolutionPath() resolutionPath: string;
   }
 
-  class YClass {
-    constructor(@inject('z') public z: ZClass) {}
+  class Team {
+    constructor(@inject('project') public project: Project) {}
   }
 
-  class XClass {
-    constructor(@inject('y') public y: YClass) {}
+  class Developer {
+    constructor(@inject('team') public team: Team) {}
   }
 
-  context.bind('x').toClass(XClass);
-  context.bind('y').toClass(YClass);
-  context.bind('z').toClass(ZClass);
-  const val: ZClass = context.getSync('z');
-  console.log(val.resolutionPath);
-  // x --> @XClass.constructor[0] --> y --> @YClass.constructor[0]
-  // --> z --> @ZClass.prototype.myProp';
+  context.bind('developer').toClass(Developer);
+  context.bind('team').toClass(Team);
+  context.bind('project').toClass(Project);
+  const developer: Developer = context.getSync('developer');
+  console.log(developer.team.project.resolutionPath);
+  // developer --> @Developer.constructor[0] --> team --> @Team.constructor[0]
+  // --> project --> @Project.prototype.resolutionPath
 }
 
 if (require.main === module) {

@@ -1,31 +1,42 @@
 import {Context, inject} from '@loopback/context';
 
-interface XInterface {}
-interface YInterface {}
-interface ZInterface {}
-
-class XClass {
-  constructor(@inject('y') public y: YInterface) {}
+interface Developer {
+  // Each developer belongs to a team
+  team: Team;
 }
 
-class YClass {
-  constructor(@inject('z') public z: ZInterface) {}
+interface Team {
+  // Each team works a project
+  project: Project;
 }
 
-class ZClass {
-  constructor(@inject('x') public x: XInterface) {}
+interface Project {
+  // Each project has a lead developer
+  lead: Developer;
+}
+
+class DeveloperImpl implements Developer {
+  constructor(@inject('team') public team: Team) {}
+}
+
+class TeamImpl implements Team {
+  constructor(@inject('project') public project: Project) {}
+}
+
+class ProjectImpl implements Project {
+  constructor(@inject('lead') public lead: Developer) {}
 }
 
 export function main() {
   const context = new Context();
 
-  context.bind('x').toClass(XClass);
-  context.bind('y').toClass(YClass);
-  context.bind('z').toClass(ZClass);
+  context.bind('lead').toClass(DeveloperImpl);
+  context.bind('team').toClass(TeamImpl);
+  context.bind('project').toClass(ProjectImpl);
 
   try {
     // The following call with fail
-    context.getSync('x');
+    context.getSync('lead');
   } catch (e) {
     console.error(e.toString());
   }
