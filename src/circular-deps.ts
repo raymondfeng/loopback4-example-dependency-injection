@@ -6,7 +6,7 @@ interface Developer {
 }
 
 interface Team {
-  // Each team works a project
+  // Each team works on a project
   project: Project;
 }
 
@@ -35,7 +35,7 @@ export function main() {
   context.bind('project').toClass(ProjectImpl);
 
   try {
-    // The following call with fail
+    // The following call will fail
     context.getSync('lead');
   } catch (e) {
     console.error(e.toString());
