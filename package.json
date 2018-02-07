@@ -40,9 +40,9 @@
     "dist6"
   ],
   "dependencies": {
-    "@loopback/context": "^4.0.0-alpha.29"
+    "@loopback/context": "^4.0.0-alpha.31"
   },
   "devDependencies": {
-    "@loopback/build": "^4.0.0-alpha.10"
+    "@loopback/build": "^4.0.0-alpha.13"
   }
 }
